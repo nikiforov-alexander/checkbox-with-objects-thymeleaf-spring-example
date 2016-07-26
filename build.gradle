@@ -1,0 +1,48 @@
+group 'com.example.bug'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-gradle-plugin
+        classpath group: 'org.springframework.boot',
+                name: 'spring-boot-gradle-plugin',
+                version: '1.3.6.RELEASE'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+// uncomment to use with eclipse
+//apply plugin: 'eclipse'
+
+//sourceCompatibility = 1.5
+configurations {
+    dev
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
+    compile group: 'org.springframework.boot',
+            name: 'spring-boot-starter-thymeleaf',
+            version: '1.3.6.RELEASE'
+    // automatic restart try
+    dev("org.springframework.boot:spring-boot-devtools")
+    // https://mvnrepository.com/artifact/com.github.slugify/slugify
+    // used to make slugs from titles
+    compile group: 'com.github.slugify', name: 'slugify', version: '2.1.5'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    // making thymeleaf to be HTML5 compliant see TemplateConfig @Bean
+    // https://mvnrepository.com/artifact/net.sourceforge.nekohtml/nekohtml
+    compile group: 'net.sourceforge.nekohtml', name: 'nekohtml', version: '1.9.22'
+}
+
+bootRun {
+    classpath = sourceSets.main.runtimeClasspath + configurations.dev
+}

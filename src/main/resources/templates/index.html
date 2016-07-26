@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Checkbox</title>
+</head>
+    <body>
+        <header>
+            <h1>CheckBox</h1>
+        </header>
+        <!--/* form with th:object Project */-->
+        <form th:object="${project}" th:action="@{/add-project}">
+             <ul>
+                 <!--/* list all possible roles */-->
+                 <li th:each="role : ${allRoles}">
+                     <!--/* in each checkbox only role.name will be tracked
+                            other fields will be null
+                     */-->
+                     <input type="checkbox"
+                            th:field="*{roles[__${roleStat.index}__].name}"
+                            th:value="${role.name}">
+                     <!--/* just label, can be removed */-->
+                     <label th:text="${role.name}"></label>
+                 </li>
+             </ul>
+            <button type="submit">Save</button>
+        </form>
+    </body>
+</html>
