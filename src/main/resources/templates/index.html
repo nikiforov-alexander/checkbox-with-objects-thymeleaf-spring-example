@@ -9,19 +9,14 @@
         </header>
         <!--/* form with th:object Project */-->
         <form th:object="${project}" th:action="@{/add-project}">
-             <ul>
-                 <!--/* list all possible roles */-->
-                 <li th:each="role : ${allRoles}">
-                     <!--/* in each checkbox only role.name will be tracked
-                            other fields will be null
-                     */-->
-                     <input type="checkbox"
-                            th:field="*{roles[__${roleStat.index}__].name}"
-                            th:value="${role.name}">
-                     <!--/* just label, can be removed */-->
-                     <label th:text="${role.name}"></label>
-                 </li>
-             </ul>
+             <!--/* select one of the enum roles and set to project */-->
+             <select th:field="*{role}">
+                 <option th:each="avRole : ${allRoles}"
+                        th:value="${avRole}"
+                        th:text="${avRole.name}"
+                        >
+                 </option>
+             </select>
             <button type="submit">Save</button>
         </form>
     </body>
