@@ -1,24 +1,22 @@
 package com.example.bug.model;
 
 
-public class Role {
+public enum Role {
+    FIRST("first", 1),
+    SECOND("second", 2);
+    private final int id;
+
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    private final String name;
+    Role(String name, int id) {
+        this.id = id;
         this.name = name;
-    }
-
-    String name;
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "name='" + name + '\'' +
-                '}';
-    }
-
-    public Role() {
     }
 }
