@@ -10,14 +10,27 @@
         <!--/* form with th:object Project */-->
         <form th:object="${project}" th:action="@{/add-project}">
              <ul>
-                 <!--/* list all possible roles */-->
+                 <!--/* list all roles from database or repository */-->
                  <li th:each="role : ${allRoles}">
-                     <!--/* in each checkbox only role.name will be tracked
-                            other fields will be null
+                     <!--/* hidden: attach to roles member id: later when we filter
+                            in controller roles by not-null, this ids will
+                            be saved in this role. I don't know any other way,
+                            but select input works here just fine
                      */-->
+                     <select hidden th:field="*{roles[__${roleStat.index}__].id}">
+                         <option th:value="${role.id}"></option>
+                     </select>
+                     <!--/* hidden: attach to roles member name */-->
+                     <select hidden th:field="*{roles[__${roleStat.index}__].name}">
+                         <option th:value="${role.name}"></option>
+                     </select>
+                     <!--/* actual checkbox where we pick roles, one that are
+                            picked will be non-null, and id and name above
+                            will be attached to them
+                      */-->
                      <input type="checkbox"
-                            th:field="*{roles[__${roleStat.index}__].name}"
-                            th:value="${role.name}">
+                            th:field="*{roles[__${roleStat.index}__]}"
+                            th:value="${role}">
                      <!--/* just label, can be removed */-->
                      <label th:text="${role.name}"></label>
                  </li>
