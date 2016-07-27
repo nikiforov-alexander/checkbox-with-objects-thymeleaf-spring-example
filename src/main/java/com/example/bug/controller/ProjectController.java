@@ -21,6 +21,8 @@ public class ProjectController {
         Role role2 = new Role();
         role1.setName("role1");
         role2.setName("role2");
+        role1.setId(1);
+        role2.setId(2);
         List<Role> roles = Arrays.asList(role1, role2);
         // add all roles to model
         model.addAttribute("allRoles", roles);
@@ -38,9 +40,10 @@ public class ProjectController {
         // filter non-null roles
         List<Role> nonNulRoles =
                 project.getRoles().stream().filter(
-                role -> role.getName() != null).collect(Collectors.toList());
-        // print selected roles: only name is saved
-        System.out.println(nonNulRoles);
+                role -> role != null).collect(Collectors.toList());
+        // print selected roles properties: name and id
+        nonNulRoles.forEach(role -> System.out.println(role.getName()));
+        nonNulRoles.forEach(role -> System.out.println(role.getId()));
         return "redirect:/";
     }
 }
